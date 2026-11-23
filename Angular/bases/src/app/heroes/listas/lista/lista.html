@@ -1,0 +1,89 @@
+
+<div class="contenedor">
+
+  <h1>LISTADO DE CENTROS</h1>
+
+  <!-- CENTRO ACTUAL -->
+  <div *ngIf="centroActual as centro" class="centro">
+
+    <img [src]="centro.logo" [alt]="centro.nombre">
+
+    <h2>{{centro.nombre}}</h2>
+
+    <p>
+      <strong>Localidad:</strong>
+      {{ centro.localidad }}
+    </p>
+
+    <h3>Ciclos formativos</h3>
+    <ul>
+      <li *ngFor="let ciclo of centro.ciclos">
+        {{ ciclo }}
+      </li>
+    </ul>
+
+  </div>
+
+  <!-- SI NO HAY CENTROS -->
+  <div *ngIf="!centroActual">
+    <h2>No hay centros en el listado</h2>
+  </div>
+
+  <!-- POSICIÓN -->
+  <h3>
+    POSICIÓN: {{ centros.length > 0 ? posicion + 1 : 0 }}
+    / {{ centros.length }}
+  </h3>
+
+  <!-- BOTONES -->
+  <div class="botones">
+
+    <button
+      *ngIf="posicion > 0"
+      (click)="anterior()">
+      &lt; ANTERIOR
+    </button>
+
+    <button
+      *ngIf="centros.length > 0"
+      (click)="eliminar()">
+      X ELIMINAR
+    </button>
+
+    <button
+      *ngIf="pila.length > 0"
+      (click)="insertar()">
+      O INSERTAR
+    </button>
+
+    <button
+      *ngIf=" posicion < centros.length - 1"
+      (click)="posterior()">
+      POSTERIOR &gt;
+    </button>
+
+  </div>
+
+  <hr>
+
+  <!-- PILA DE ELIMINADOS -->
+  <div class="pila">
+
+    <h2>PILA DE CENTROS ELIMINADOS</h2>
+
+    <p *ngIf="pila.length === 0">
+      La pila está vacía
+    </p>
+
+    <ol>
+      <li *ngFor="let centro of pila">
+        {{ centro.nombre }}
+      </li>
+    </ol>
+
+  </div>
+
+</div>
+
+
+
